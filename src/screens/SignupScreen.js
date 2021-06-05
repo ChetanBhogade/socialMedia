@@ -5,17 +5,14 @@ import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
 import {windowHeight} from '../utils/Dimensions';
 
-const LoginScreen = ({navigation}) => {
+const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require('../assets/images/rn-social-logo.png')}
-        style={styles.logo}
-      />
-      <Text style={styles.text}>Chetan Social Media</Text>
+      <Text style={styles.text}>Create An Account</Text>
       <FormInput
         placeholderText="Email"
         labelValue={email}
@@ -38,27 +35,50 @@ const LoginScreen = ({navigation}) => {
         secureTextEntry={true}
       />
 
+      <FormInput
+        placeholderText="Confirm Password"
+        labelValue={confirmPassword}
+        onChangeText={userPassword => {
+          setConfirmPassword(userPassword);
+        }}
+        iconType="lock"
+        secureTextEntry={true}
+      />
+
       <FormButton
-        buttonTitle="Sign In"
+        buttonTitle="Sign Up"
         onPress={() => {
           alert('Button is pressed');
         }}
       />
 
-      <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
-        <Text style={styles.navButtonText}>Forgot Password?</Text>
-      </TouchableOpacity>
+      <View style={styles.textPrivate}>
+        <Text style={styles.color_textPrivate}>
+          By Registering, you confirm that you accept out
+        </Text>
+        <TouchableOpacity onPress={() => { 
+          alert("Terms Clicked")
+         }} >
+          <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+            Terms of service
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.color_textPrivate}> and </Text>
+        <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+          Privacy Policy
+        </Text>
+      </View>
 
-      <SocialButton 
-        buttonTitle="SignI In With Facebook"
+      <SocialButton
+        buttonTitle="Sign Up With Facebook"
         btnType="facebook"
         color="#4867aa"
         backgroundColor="#e6eaf4"
         onPress={() => {}}
       />
 
-      <SocialButton 
-        buttonTitle="SignI In With Google"
+      <SocialButton
+        buttonTitle="SignI Up With Google"
         btnType="google"
         color="#de4d41"
         backgroundColor="#f5e7ea"
@@ -68,17 +88,17 @@ const LoginScreen = ({navigation}) => {
       <TouchableOpacity
         style={styles.navButton}
         onPress={() => {
-          navigation.navigate('Signup');
+          navigation.navigate('Login');
         }}>
         <Text style={styles.navButtonText}>
-          Don't have an account? Click here
+          Have an account? Sign In
         </Text>
       </TouchableOpacity>
     </View>
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -86,11 +106,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 20,
     paddingTop: 50,
-  },
-  logo: {
-    height: 150,
-    width: 150,
-    resizeMode: 'cover',
   },
   text: {
     fontFamily: 'Kufam-SemiBoldItalic',
@@ -101,13 +116,22 @@ const styles = StyleSheet.create({
   navButton: {
     marginTop: 15,
   },
-  forgotButton: {
-    marginVertical: 35,
-  },
   navButtonText: {
     fontSize: 18,
     fontWeight: '500',
     color: '#2e64e5',
     fontFamily: 'Lato-Regular',
+  },
+  textPrivate: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginVertical: 35,
+    justifyContent: 'center',
+  },
+  color_textPrivate: {
+    fontSize: 13,
+    fontWeight: '400',
+    fontFamily: 'Lato-Regular',
+    color: 'grey',
   },
 });
