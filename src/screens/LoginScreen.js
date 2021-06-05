@@ -1,13 +1,16 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
+import { AuthContext } from '../navigation/AuthProvider';
 import {windowHeight} from '../utils/Dimensions';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const {login} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -41,7 +44,8 @@ const LoginScreen = ({navigation}) => {
       <FormButton
         buttonTitle="Sign In"
         onPress={() => {
-          alert('Button is pressed');
+          // alert('Button is pressed');
+          login(email, password)
         }}
       />
 

@@ -1,14 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, View, TouchableOpacity, Image} from 'react-native';
 import FormButton from '../components/FormButton';
 import FormInput from '../components/FormInput';
 import SocialButton from '../components/SocialButton';
+import {AuthContext} from '../navigation/AuthProvider';
 import {windowHeight} from '../utils/Dimensions';
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const {register} = useContext(AuthContext);
 
   return (
     <View style={styles.container}>
@@ -48,7 +51,8 @@ const SignupScreen = ({ navigation }) => {
       <FormButton
         buttonTitle="Sign Up"
         onPress={() => {
-          alert('Button is pressed');
+          // alert('Button is pressed');
+          register(email, password);
         }}
       />
 
@@ -56,10 +60,12 @@ const SignupScreen = ({ navigation }) => {
         <Text style={styles.color_textPrivate}>
           By Registering, you confirm that you accept out
         </Text>
-        <TouchableOpacity onPress={() => { 
-          alert("Terms Clicked")
-         }} >
+        <TouchableOpacity
+          onPress={() => {
+            alert('Terms Clicked');
+          }}>
           <Text style={[styles.color_textPrivate, {color: '#e88832'}]}>
+            {' '}
             Terms of service
           </Text>
         </TouchableOpacity>
@@ -90,9 +96,7 @@ const SignupScreen = ({ navigation }) => {
         onPress={() => {
           navigation.navigate('Login');
         }}>
-        <Text style={styles.navButtonText}>
-          Have an account? Sign In
-        </Text>
+        <Text style={styles.navButtonText}>Have an account? Sign In</Text>
       </TouchableOpacity>
     </View>
   );
